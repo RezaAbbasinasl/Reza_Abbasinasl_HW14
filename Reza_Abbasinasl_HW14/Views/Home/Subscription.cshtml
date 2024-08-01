@@ -1,0 +1,63 @@
+﻿@model Reza_Abbasinasl_HW14.Models.SubscriptionViewModel
+@{
+}
+
+@if(ViewData["success"] != null)
+{
+    <p class="text-success">@ViewData["success"]</p>
+}
+@if (ViewData["error"] != null)
+{
+    <p class="text-danger">@ViewData["error"]</p>
+}
+
+<div class="container d-flex justify-content-center">
+    <form asp-controller="Home" asp-action="Submit" method="post" class="col-7">
+        <div class="form-group mt-3">
+            <label>First Name</label>
+            <input class="form-control" placeholder="First Name" name="firstname" asp-for="FirstName">            
+            <span id="firstName" class="text-danger"></span>
+        </div>
+        <div class="form-group mt-3">
+            <label>Lats Name</label>
+            <input class="form-control" placeholder="Lats Name" name="lastname" asp-for="LastName">
+            <span id="lastName" class="text-danger"></span>
+        </div>
+        <div class="form-group mt-3">
+            <label>Phone Number</label>
+            <input class="form-control" placeholder="Phone Number" name="phoneNumber" asp-for="PhoneNumber">
+            <span id="phoneNumber" class="text-danger"></span>
+        </div>
+        <div class="form-group mt-3">
+            <label>Birth Day</label>
+            <input class="form-control" placeholder="Birth Day" name="birthday" asp-for="BirthDay">
+            <span id="birthDay" class="text-danger"></span>
+        </div>
+        <div class="form-group mt-3">
+            <label>Course Code</label>
+            <input class="form-control" placeholder="Course Code" name="courseCode" asp-for="CourseCode" maxlength="3" minlength="3">
+            <span id="courseCode" class="text-danger"></span>
+        </div>
+        <div class="form-group mt-3">
+            <label>Gender</label>
+            <select class="form-select" name="genderCzheck" asp-for="GenderCzheck">
+                <option selected>Select Item</option>
+                <option value="Man">Man</option>
+                <option value="Female">Female</option>
+            </select>
+            <span id="genderCzheck" class="text-danger"></span>
+        </div>
+        <div class="form-group mt-3">
+            <div class="form-check">
+                <input class="form-check-input" name="checkRules" asp-for="CheckRules">
+                <label class="form-check-label">
+                    <a href="https://www.google.com/" class="text-decoration-none">I read the rules</a>
+                </label>
+                <span id="CheckRules" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group mt-3">
+            <input type="submit" value="Submit" class="btn btn-success" />
+        </div>
+    </form>
+</div>
