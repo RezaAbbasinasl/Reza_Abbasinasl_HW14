@@ -82,7 +82,7 @@
                 printError("fnameError", "Please enter your first name");
             } else {
                 let flength = firsname.length;
-                if (flength <= 3 && flength >= 30) {
+                if (flength < 3 || flength > 30) {
                     printError("fnameError", "Please enter a valid first name");
                 } else {
                     printError("fnameError", "");
@@ -93,7 +93,7 @@
                 printError("lnameError", "Please enter your last name");
             } else {
                 let flength = lastname.length;
-                if (flength <= 3 && flength >= 30) {
+                if (flength < 3 || flength > 30) {
                     printError("lnameError", "Please enter a valid last name");
                 } else {
                     printError("lnameError", "");
@@ -106,7 +106,7 @@
             } else {
                 let regex = /^09\d{9}$/;
                 let flength = phonenumber.length;
-                if (regex.test(phonenumber) === false && flength < 11) {
+                if (regex.test(phonenumber) === false || flength < 11) {
                     printError("phoneError", "Please enter a valid phone number");
                 } else {
                     printError("phoneError", "");
@@ -134,7 +134,7 @@
                 printError("courseError", "Please enter your course code");
             } else {
                 let flength = coursecode.length;
-                if (flength != 3 || coursecode[2] % 2 != 0) {
+                if (flength != 3 || coursecode[0] % 2 != 0) {
                     printError("courseError", "Please enter a valid course code");
                 } else {
                     printError("courseError", "");

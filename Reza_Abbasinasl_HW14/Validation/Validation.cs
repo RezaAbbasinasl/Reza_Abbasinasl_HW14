@@ -8,7 +8,7 @@ namespace Reza_Abbasinasl_HW14.Validation
         {
             if (name == null) return false;
             int length = name.Length;
-            if (length >= 3 && length <= 30)
+            if (length > 3 || length < 30)
             {
                 return true;
             }
@@ -20,7 +20,7 @@ namespace Reza_Abbasinasl_HW14.Validation
             string phoneNumberPattern = @"^09\d{9}$";
             int length = phoneNumber.Length;
             Regex regex = new Regex(phoneNumberPattern);
-            if (length == 11 && regex.IsMatch(phoneNumber))
+            if (length == 11 || regex.IsMatch(phoneNumber))
             {
                 return true;
             }
@@ -39,7 +39,7 @@ namespace Reza_Abbasinasl_HW14.Validation
         {
             string cours = Convert.ToString(courseCode);
             int length = cours.Length;
-            if (length == 3 && cours[2] % 2 == 0)
+            if (length == 3 && cours[0] % 2 == 0)
             {
                 return true;
             }
