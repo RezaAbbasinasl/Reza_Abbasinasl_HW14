@@ -12,52 +12,163 @@
 }
 
 <div class="container d-flex justify-content-center">
-    <form asp-controller="Home" asp-action="Submit" method="post" class="col-7">
+    <form asp-controller="Home" asp-action="Submit" method="post" class="col-7" id="form" onsubmit="return validateForm()">
         <div class="form-group mt-3">
             <label>First Name</label>
-            <input class="form-control" placeholder="First Name" name="firstname" asp-for="FirstName">            
-            <span id="firstName" class="text-danger"></span>
+            <input class="form-control" placeholder="First Name" name="firstname" asp-for="FirstName" id="firstname" >
+            <div id="fnameError" class="text-danger"></div>
         </div>
         <div class="form-group mt-3">
             <label>Lats Name</label>
-            <input class="form-control" placeholder="Lats Name" name="lastname" asp-for="LastName">
-            <span id="lastName" class="text-danger"></span>
+            <input class="form-control" placeholder="Lats Name" name="lastname" asp-for="LastName" id="lastname" >
+            <div id="lnameError" class="text-danger"></div>
         </div>
         <div class="form-group mt-3">
             <label>Phone Number</label>
-            <input class="form-control" placeholder="Phone Number" name="phoneNumber" asp-for="PhoneNumber">
-            <span id="phoneNumber" class="text-danger"></span>
+            <input class="form-control" placeholder="Phone Number" name="phonenumber" asp-for="PhoneNumber" id="phonenumber" >
+            <div id="phoneError" class="text-danger"></div>
         </div>
         <div class="form-group mt-3">
             <label>Birth Day</label>
-            <input class="form-control" placeholder="Birth Day" name="birthday" asp-for="BirthDay">
-            <span id="birthDay" class="text-danger"></span>
+            <input class="form-control" placeholder="Birth Day" name="birthday" asp-for="BirthDay" id="birthday" >
+            <div id="birthError" class="text-danger"></div>
         </div>
         <div class="form-group mt-3">
             <label>Course Code</label>
-            <input class="form-control" placeholder="Course Code" name="courseCode" asp-for="CourseCode" maxlength="3" minlength="3">
-            <span id="courseCode" class="text-danger"></span>
+            <input class="form-control" placeholder="Course Code" name="coursecode" asp-for="CourseCode" id="coursecode" >
+            <div id="courseError" class="text-danger"></div>
         </div>
         <div class="form-group mt-3">
-            <label>Gender</label>
-            <select class="form-select" name="genderCzheck" asp-for="GenderCzheck">
+            <label>Gender</label> 
+            <select class="form-select" name="genderczheck" asp-for="GenderCzheck" id="genderczheck" >
                 <option selected>Select Item</option>
                 <option value="Man">Man</option>
                 <option value="Female">Female</option>
             </select>
-            <span id="genderCzheck" class="text-danger"></span>
+            <div id="genderError" class="text-danger"></div>
         </div>
         <div class="form-group mt-3">
             <div class="form-check">
-                <input class="form-check-input" name="checkRules" asp-for="CheckRules">
+                <input class="form-check-input" name="checkrules" asp-for="CheckRules" id="checkrules">
                 <label class="form-check-label">
-                    <a href="https://www.google.com/" class="text-decoration-none">I read the rules</a>
+                    <a href="/home/Rules" class="text-decoration-none">I read the rules</a>
                 </label>
-                <span id="CheckRules" class="text-danger"></span>
+                <div id="rulesError" class="text-danger"></div>
             </div>
         </div>
         <div class="form-group mt-3">
-            <input type="submit" value="Submit" class="btn btn-success" />
+            <input type="submit" value="Submit" class="btn btn-success" id="submit" />
         </div>
     </form>
 </div>
+@section scripts{
+    <script>
+
+        function printError(elemId, hintMsg) {
+            document.getElementById(elemId).innerHTML = hintMsg;
+        }
+
+        function validateForm() {
+            let firsname = document.getElementById("firstname").value;
+            let lastname = document.getElementById("lastname").value;
+            let phonenumber = document.getElementById("phonenumber").value;
+            let birthday = document.getElementById("birthday").value;
+            let coursecode = document.getElementById("coursecode").value;
+            let genderczheck = document.getElementById("genderczheck").value;
+            let checkrules = document.getElementById("checkrules").value;
+            let fnameError = lnameError = phoneError = birthError = courseError = genderError = RulesError = true;
+
+            if (firsname == "") {
+                printError("fnameError", "Please enter your first name");
+            } else {
+                let regex = /^[a-zA-Z\s]+$/;
+                let flength = firsname.length;
+                console.log(flength);
+                if (regex.test(firsname) === false || flength < 3 || flength > 30) {
+                    console.log(flength);
+                    printError("fnameError", "Please enter a valid first name");
+                } else {
+                    printError("fnameError", "");
+                    nameErr = false;
+                }
+            }
+            if (lastname == "") {
+                printError("lnameError", "Please enter your last name");
+            } else {
+                let regex = /^[a-zA-Z\s]+$/;
+                let flength = lastname.length;
+                if (regex.test(lastname) === false || flength < 3 || flength > 30) {
+                    printError("lnameError", "Please enter a valid last name");
+                } else {
+                    printError("lnameError", "");
+                    nameErr = false;
+                }
+            }
+
+            if (phonenumber == "") {
+                printError("phoneError", "Please enter your phone number");
+            } else {
+                let regex = /^09\d{9}$/;
+                let flength = phonenumber.length;
+                if (regex.test(phonenumber) === false && flength < 11) {
+                    printError("phoneError", "Please enter a valid phone number");
+                } else {
+                    printError("phoneError", "");
+                    nameErr = false;
+                }
+            }
+
+            if (birthday == "") {
+                printError("birthError", "Please enter your Birth Day");
+            } else {
+                let setUserNewDate = new Date(birthday);
+                let calculateMonth = Date.now() - setUserNewDate.getTime();
+                let monthToNewDate = new Date(calculateMonth);
+                let year = monthToNewDate.getUTCFullYear();
+                let age = Math.abs(year - 1970);
+                console.log(age);
+                if (age < 18) {
+                    printError("birthError", "Please enter a valid Birth Day");
+                } else {
+                    printError("birthError", "");
+                    nameErr = false;
+                }
+            }
+
+            if (coursecode == "") {
+                printError("courseError", "Please enter your course code");
+            } else {
+                let flength = coursecode.length;
+                if (flength != 3 || coursecode[2] % 2 != 0) {
+                    printError("courseError", "Please enter a valid course code");
+                } else {
+                    printError("courseError", "");
+                    nameErr = false;
+                }
+            }
+
+            if (genderczheck == "Select Item") {
+                printError("genderError", "Please enter your Gender");
+            } else {
+                if (genderczheck != "Man" && genderczheck != "Female") {
+                    printError("genderError", "Please enter a valid Gender");
+                } else {
+                    printError("genderError", "");
+                    nameErr = false;
+                }
+            }
+            if (!checkrules) {
+                printError("rulesError", "Please enter your Rules");
+            } else {
+                printError("rulesError", "");
+                nameErr = false;
+            }
+
+            if ((fnameError || lnameError || phoneError || birthError || courseError || genderError || RulesError) == true) {
+                return false;
+            } else {
+                return true;
+            }
+        }
+    </script>
+}

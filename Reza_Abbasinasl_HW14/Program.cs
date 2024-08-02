@@ -28,7 +28,7 @@ namespace Reza_Abbasinasl_HW14
 
             app.MapControllerRoute(
                 name: "default",
-                pattern: "{controller=Home}/{action=Index}/{id?}");
+                pattern: "{controller=Home}/{action=Subscription}/{id?}");
 
             app.Run();
         }

@@ -2,6 +2,9 @@ using Microsoft.AspNetCore.Mvc;
 using Reza_Abbasinasl_HW14.Models;
 using Reza_Abbasinasl_HW14.Validation;
 using System.Diagnostics;
+using System.Text.Json;
+using System.Xml;
+using Newtonsoft.Json;
 
 namespace Reza_Abbasinasl_HW14.Controllers
 {
@@ -31,13 +34,28 @@ namespace Reza_Abbasinasl_HW14.Controllers
         [HttpPost]
         public IActionResult Submit(SubscriptionViewModel model)
         {
-            if (model.CheckRules.ValidationCheckRules())
+            bool firstName = model.FirstName.ValidationNameAndFamily();
+            bool LastName = model.FirstName.ValidationNameAndFamily();
+            bool phoneNumber = model.PhoneNumber.ValidationPhoneNumber();
+            bool birthDay = model.BirthDay.ValidationPermissibleAge();
+            bool courseCode = model.CourseCode.ValidationCourseCode();
+            bool genderCzheck = model.GenderCzheck.ValidationGenderCzheck();
+            bool checkRules = model.CheckRules.ValidationCheckRules();
+
+            if (firstName && LastName && phoneNumber && birthDay && courseCode && genderCzheck && checkRules)
             {
                 ViewData["success"] = "Ok";
-                return View("Subscription");
+                string FilePath = "Book.txt";
+                var json = JsonConvert.SerializeObject(model);
+                System.IO.File.WriteAllText(FilePath, json);
+                return RedirectToAction("Subscription");
             }
             ViewData["error"] = "No";
             return View("Subscription");
+        }
+        public IActionResult Rules()
+        {
+            return View();
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

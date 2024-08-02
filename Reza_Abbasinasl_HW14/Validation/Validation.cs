@@ -6,6 +6,7 @@ namespace Reza_Abbasinasl_HW14.Validation
     {
         public static bool ValidationNameAndFamily(this string name)
         {
+            if (name == null) return false;
             int length = name.Length;
             if (length >= 3 && length <= 30)
             {
@@ -15,6 +16,7 @@ namespace Reza_Abbasinasl_HW14.Validation
         }
         public static bool ValidationPhoneNumber(this string phoneNumber)
         {
+            if(phoneNumber == null) return false;
             string phoneNumberPattern = @"^09\d{9}$";
             int length = phoneNumber.Length;
             Regex regex = new Regex(phoneNumberPattern);
@@ -37,7 +39,7 @@ namespace Reza_Abbasinasl_HW14.Validation
         {
             string cours = Convert.ToString(courseCode);
             int length = cours.Length;
-            if (length >= 3 && cours[2] % 2 == 0)
+            if (length == 3 && cours[2] % 2 == 0)
             {
                 return true;
             }
