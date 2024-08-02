@@ -1,1 +1,1 @@
-{"FirstName":"رضا","LastName":"عباسی نسل","PhoneNumber":"09010949947","BirthDay":"1993-05-01T23:22:00","CourseCode":102,"GenderCzheck":"Female","CheckRules":true}
+{"FirstName":"رضا","LastName":"عباسی نسل","PhoneNumber":"09010949947","BirthDay":"1994-06-02T09:30:00","CourseCode":102,"GenderCzheck":"Man","CheckRules":true}
